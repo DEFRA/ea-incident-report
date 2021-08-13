@@ -1,15 +1,14 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="PopUp_Handler" this:PopUp_Handler.IN_dictPopupConfig="[new dictionary(of string, string)from{{&quot;Address Lookup&quot;, &quot;OK&quot;}}]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="PopUp_Handler" this:PopUp_Handler.IN_dictPopupConfig="[new dictionary(of string, string)from{{&quot;Address Lookup&quot;, &quot;OK&quot;}}]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="IN_dictPopupConfig" Type="InArgument(scg:Dictionary(x:String, x:String))" />
-    <x:Property Name="OUT_strPopUpText" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1202,1259</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1449,1983</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PopUp_Handler_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="42">
+    <scg:List x:TypeArguments="x:String" Capacity="22">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -35,7 +34,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="23">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -61,7 +60,7 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PopUp_Handler" sap:VirtualizedContainerService.HintSize="1212,1194" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PopUp_Handler" sap:VirtualizedContainerService.HintSize="1459,1918" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="booPopUpExists" />
     </Sequence.Variables>
@@ -70,16 +69,12 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="1170,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+    <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="1417,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
       <ui:UiElementExists.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="c31a52acf497b9263a57e9d3ffa4f8c5" Selector="&lt;wnd app='irs.exe' cls='#32770' title='*' /&gt;" WaitForReady="COMPLETE">
-          <ui:Target.TimeoutMS>
-            <InArgument x:TypeArguments="x:Int32" />
-          </ui:Target.TimeoutMS>
-        </ui:Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="c31a52acf497b9263a57e9d3ffa4f8c5" Selector="&lt;wnd app='irs.exe' cls='#32770' title='*' /&gt;" TimeoutMS="1500" WaitForReady="COMPLETE" />
       </ui:UiElementExists.Target>
     </ui:UiElementExists>
-    <If Condition="[booPopUpExists]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="1170,956" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[booPopUpExists]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="1417,1680" sap2010:WorkflowViewState.IdRef="If_6">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -87,102 +82,120 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence DisplayName="Get text and take action" sap:VirtualizedContainerService.HintSize="599,808" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <ui:RetryScope DisplayName="Resolve up to 8 popups" sap:VirtualizedContainerService.HintSize="846,1532" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="8" RetryInterval="00:00:01">
+          <ui:RetryScope.ActivityBody>
+            <ActivityAction>
+              <Sequence DisplayName="Resolve popup and check again" sap:VirtualizedContainerService.HintSize="804,1351" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Sequence DisplayName="Get text and take action" sap:VirtualizedContainerService.HintSize="762,909" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="strPopUpText" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="title" DisplayName="Get Attribute 'Window Title'" sap:VirtualizedContainerService.HintSize="719,96" sap2010:WorkflowViewState.IdRef="GetAttribute_3">
+                    <ui:GetAttribute.Result>
+                      <OutArgument x:TypeArguments="x:String">[strPopUpText]</OutArgument>
+                    </ui:GetAttribute.Result>
+                    <ui:GetAttribute.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ba5d6750-8ddd-48c0-a0f2-46778a3ef6ce" Selector="&lt;wnd app='irs.exe' cls='#32770' /&gt;&lt;wnd ctrlid='65535' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:GetAttribute.Target>
+                  </ui:GetAttribute>
+                  <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each PopUp Specified in Config" sap:VirtualizedContainerService.HintSize="719,681" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[IN_dictPopupConfig]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:String)">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:String)" Name="popup" />
+                        </ActivityAction.Argument>
+                        <If Condition="[strPopUpText.Trim.ToLower.Contains(popup.Key.Trim.ToLower)]" DisplayName="If title matches" sap:VirtualizedContainerService.HintSize="683,548" sap2010:WorkflowViewState.IdRef="If_7">
+                          <If.Then>
+                            <Sequence DisplayName="Take action and pass out popup text" sap:VirtualizedContainerService.HintSize="538,401" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[popup.Value]" sap:VirtualizedContainerService.HintSize="496,309" sap2010:WorkflowViewState.IdRef="Switch`1_3">
+                                <Switch.Default>
+                                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT">
+                                    <ui:Click.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </ui:Click.CursorPosition>
+                                    <ui:Click.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3efc79ab-6012-4512-b8a9-2ada7e26b7d2" InformativeScreenshot="b01cb5f9535a12ab0073fad5f632a7db" Selector="[&quot;&lt;wnd app='irs.exe' cls='#32770' /&gt;&lt;wnd title='*&quot; &amp; popup.Value.Trim &amp; &quot;' /&gt;&quot;]" WaitForReady="COMPLETE">
+                                        <ui:Target.TimeoutMS>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:Target.TimeoutMS>
+                                      </ui:Target>
+                                    </ui:Click.Target>
+                                  </ui:Click>
+                                </Switch.Default>
+                                <Throw x:Key="Data" DisplayName="Throw Data error" Exception="[new InvalidDataException(strPopUpText &amp; &quot; error.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_7" />
+                                <Throw x:Key="Application" Exception="[new exception(strPopUpText &amp; &quot; error.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_8" />
+                              </Switch>
+                            </Sequence>
+                          </If.Then>
+                        </If>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                  </ui:ForEach>
+                </Sequence>
+                <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim x As New Process&#xA;Dim t As New Date&#xA;For Each x In process.GetProcesses&#xA;&#x9;If x.ProcessName = &quot;IRS&quot;&#xA;&#x9;&#x9;Do&#xA;&#x9;&#x9;&#x9;If x.Responding&#xA;&#x9;&#x9;&#x9;Else&#xA;&#x9;&#x9;&#x9;&#x9;t = Now&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Loop Until (now - t).TotalMilliseconds &gt;= intTimeout&#xA;&#x9;End If&#xA;Next" DisplayName="Invoke code - Wait for Page Change" sap:VirtualizedContainerService.HintSize="762,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                  <ui:InvokeCode.Arguments>
+                    <InArgument x:TypeArguments="x:Int32" x:Key="intTimeout">4000</InArgument>
+                  </ui:InvokeCode.Arguments>
+                </ui:InvokeCode>
+                <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="762,106" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
+                  <ui:UiElementExists.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="c31a52acf497b9263a57e9d3ffa4f8c5" Selector="&lt;wnd app='irs.exe' cls='#32770' title='*' /&gt;" TimeoutMS="1500" WaitForReady="COMPLETE" />
+                  </ui:UiElementExists.Target>
+                </ui:UiElementExists>
+              </Sequence>
+            </ActivityAction>
+          </ui:RetryScope.ActivityBody>
+          <ui:RetryScope.Condition>
+            <ActivityFunc x:TypeArguments="x:Boolean">
+              <p:IsFalse DisplayName="No Pop up" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="IsFalse_1" Input="[booPopUpExists]" />
+            </ActivityFunc>
+          </ui:RetryScope.Condition>
+        </ui:RetryScope>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Multiple address match" sap:VirtualizedContainerService.HintSize="526,446" sap2010:WorkflowViewState.IdRef="Sequence_7">
           <Sequence.Variables>
-            <Variable x:TypeArguments="x:String" Name="strPopUpTitle" />
+            <Variable x:TypeArguments="x:Boolean" Name="booAddressPopup" />
           </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="title" DisplayName="Get Attribute 'Window Title'" sap:VirtualizedContainerService.HintSize="557,96" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
-            <ui:GetAttribute.Result>
-              <OutArgument x:TypeArguments="x:String">[strPopUpTitle]</OutArgument>
-            </ui:GetAttribute.Result>
-            <ui:GetAttribute.Target>
-              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ba5d6750-8ddd-48c0-a0f2-46778a3ef6ce" Selector="&lt;wnd app='irs.exe' cls='#32770' /&gt;&lt;wnd ctrlid='65535' /&gt;" WaitForReady="COMPLETE">
-                <ui:Target.TimeoutMS>
-                  <InArgument x:TypeArguments="x:Int32" />
-                </ui:Target.TimeoutMS>
-              </ui:Target>
-            </ui:GetAttribute.Target>
-          </ui:GetAttribute>
-          <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each PopUp Specified in Config" sap:VirtualizedContainerService.HintSize="557,580" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[IN_dictPopupConfig]">
-            <ui:ForEach.Body>
-              <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:String)">
-                <ActivityAction.Argument>
-                  <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:String)" Name="popup" />
-                </ActivityAction.Argument>
-                <If Condition="[popup.Key.Trim.ToLower = strPopUpTitle.Trim.ToLower]" DisplayName="If title matches" sap:VirtualizedContainerService.HintSize="521,446" sap2010:WorkflowViewState.IdRef="If_2">
-                  <If.Then>
-                    <Sequence DisplayName="Take action and pass out popup text" sap:VirtualizedContainerService.HintSize="376,298" sap2010:WorkflowViewState.IdRef="Sequence_3">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT">
-                        <ui:Click.CursorPosition>
-                          <ui:CursorPosition Position="Center">
-                            <ui:CursorPosition.OffsetX>
-                              <InArgument x:TypeArguments="x:Int32" />
-                            </ui:CursorPosition.OffsetX>
-                            <ui:CursorPosition.OffsetY>
-                              <InArgument x:TypeArguments="x:Int32" />
-                            </ui:CursorPosition.OffsetY>
-                          </ui:CursorPosition>
-                        </ui:Click.CursorPosition>
-                        <ui:Click.Target>
-                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3efc79ab-6012-4512-b8a9-2ada7e26b7d2" InformativeScreenshot="b01cb5f9535a12ab0073fad5f632a7db" Selector="[&quot;&lt;wnd app='irs.exe' cls='#32770' title='Address Lookup' /&gt;&lt;wnd title='&quot; &amp; popup.Value.Trim &amp; &quot;' /&gt;&quot;]" WaitForReady="COMPLETE">
-                            <ui:Target.TimeoutMS>
-                              <InArgument x:TypeArguments="x:Int32" />
-                            </ui:Target.TimeoutMS>
-                          </ui:Target>
-                        </ui:Click.Target>
-                      </ui:Click>
-                      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
-                        <Assign.To>
-                          <OutArgument x:TypeArguments="x:String">[OUT_strPopUpText]</OutArgument>
-                        </Assign.To>
-                        <Assign.Value>
-                          <InArgument x:TypeArguments="x:String">[strPopUpTitle]</InArgument>
-                        </Assign.Value>
-                      </Assign>
-                    </Sequence>
-                  </If.Then>
-                </If>
-              </ActivityAction>
-            </ui:ForEach.Body>
-          </ui:ForEach>
-        </Sequence>
-      </If.Then>
-      <If.Else>
-        <Sequence DisplayName="Multiple address match" sap:VirtualizedContainerService.HintSize="526,446" sap2010:WorkflowViewState.IdRef="Sequence_4">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+          <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booAddressPopup]" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="UiElementExists_3">
             <ui:UiElementExists.Target>
-              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="ba23ecd4a903a044028687b00f14a4d9" Selector="&lt;wnd app='irs.exe' cls='ThunderRT6FormDC' title='Address Lookup' /&gt;" WaitForReady="COMPLETE">
-                <ui:Target.TimeoutMS>
-                  <InArgument x:TypeArguments="x:Int32" />
-                </ui:Target.TimeoutMS>
-              </ui:Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="ba23ecd4a903a044028687b00f14a4d9" Selector="&lt;wnd app='irs.exe' cls='ThunderRT6FormDC' title='Address Lookup' /&gt;" TimeoutMS="1500" WaitForReady="COMPLETE" />
             </ui:UiElementExists.Target>
           </ui:UiElementExists>
-          <If Condition="[booPopUpExists]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_3">
+          <If Condition="[booAddressPopup]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_5">
             <If.Then>
-              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
-                <Assign.To>
-                  <OutArgument x:TypeArguments="x:String">[OUT_strPopUpText]</OutArgument>
-                </Assign.To>
-                <Assign.Value>
-                  <InArgument x:TypeArguments="x:String">Multiple Address Matches</InArgument>
-                </Assign.Value>
-              </Assign>
+              <Throw DisplayName="Throw Data error" Exception="[new InvalidDataException(&quot;Multiple address matches.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_6" />
             </If.Then>
           </If>
         </Sequence>
