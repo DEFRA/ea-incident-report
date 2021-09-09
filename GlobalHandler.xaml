@@ -14,7 +14,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>2742,2556</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1516,2556</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GlobalHandler_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="32">
@@ -121,15 +121,18 @@
               <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="IN_dictEmailData">
                 <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:String)" ExpressionText="JsonConvert.DeserializeObject(of Dictionary(of string, string))(JsonConvert.SerializeObject(errorInfo.Exception.Data(&quot;EmailData&quot;)))" />
               </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="IN_strErrorField">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="errorInfo.Exception.Message" />
-              </InArgument>
               <OutArgument x:TypeArguments="x:String" x:Key="OUT_strSelectedOption">
                 <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strSelectedOption" />
               </OutArgument>
               <OutArgument x:TypeArguments="x:Boolean" x:Key="OUT_booDismissed">
                 <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="booDismissed" />
               </OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="IN_strFormTitle">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="errorInfo.Exception.Data(&quot;FormTitle&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="IN_strErrorBody">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="errorInfo.Exception.Data(&quot;FormBody&quot;).ToString" />
+              </InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
           <If Condition="[strSelectedOption.Trim.ToLower = &quot;stop&quot; OR booDismissed]" DisplayName="If Dismissed or Stop" sap:VirtualizedContainerService.HintSize="683,551" sap2010:WorkflowViewState.IdRef="If_6">

@@ -4,11 +4,12 @@
     <x:Property Name="IN_dictEmailData" Type="InArgument(scg:Dictionary(x:String, x:String))" />
     <x:Property Name="IN_dictConfig" Type="InArgument(scg:Dictionary(x:String, ui:GenericValue))" />
     <x:Property Name="IN_dateStartTime" Type="InArgument(s:DateTime)" />
+    <x:Property Name="OUT_booAddressError" Type="OutArgument(x:Boolean)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>2620,1833</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1518,3348</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PopUp_Handler_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -63,7 +64,7 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PopUp_Handler" sap:VirtualizedContainerService.HintSize="1458,1768" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PopUp_Handler" sap:VirtualizedContainerService.HintSize="1528,3283" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="booPopUpExists" />
     </Sequence.Variables>
@@ -72,12 +73,25 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="1416,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+    <Assign DisplayName="Set Address Error" sap:VirtualizedContainerService.HintSize="1486,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[OUT_booAddressError]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim x As New Process&#xA;Dim t As New Date&#xA;t = Now&#xA;For Each x In process.GetProcesses&#xA;&#x9;If x.ProcessName = &quot;IRS&quot;&#xA;&#x9;&#x9;Do&#xA;&#x9;&#x9;&#x9;If x.Responding&#xA;&#x9;&#x9;&#x9;Else&#xA;&#x9;&#x9;&#x9;&#x9;t = Now&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Loop Until (now - t).TotalMilliseconds &gt;= intTimeout&#xA;&#x9;End If&#xA;Next" DisplayName="Invoke code - Wait for Page Change" sap:VirtualizedContainerService.HintSize="1486,164" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:Int32" x:Key="intTimeout">1000</InArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="1486,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
       <ui:UiElementExists.Target>
         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="c31a52acf497b9263a57e9d3ffa4f8c5" Selector="&lt;wnd app='irs.exe' cls='#32770' title='*' /&gt;" TimeoutMS="1500" WaitForReady="COMPLETE" />
       </ui:UiElementExists.Target>
     </ui:UiElementExists>
-    <If Condition="[booPopUpExists]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="1416,1530" sap2010:WorkflowViewState.IdRef="If_6">
+    <If Condition="[booPopUpExists]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="1486,2537" sap2010:WorkflowViewState.IdRef="If_6">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -85,16 +99,16 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <ui:RetryScope DisplayName="Resolve up to 8 popups" sap:VirtualizedContainerService.HintSize="845,1382" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="8" RetryInterval="00:00:01">
+        <ui:RetryScope DisplayName="Resolve up to 8 popups" sap:VirtualizedContainerService.HintSize="915,2389" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="8" RetryInterval="00:00:01">
           <ui:RetryScope.ActivityBody>
             <ActivityAction>
-              <Sequence DisplayName="Resolve popup and check again" sap:VirtualizedContainerService.HintSize="803,1201" sap2010:WorkflowViewState.IdRef="Sequence_8">
+              <Sequence DisplayName="Resolve popup and check again" sap:VirtualizedContainerService.HintSize="873,2208" sap2010:WorkflowViewState.IdRef="Sequence_8">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Sequence DisplayName="Get text and take action" sap:VirtualizedContainerService.HintSize="761,759" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                <Sequence DisplayName="Get text and take action" sap:VirtualizedContainerService.HintSize="831,1766" sap2010:WorkflowViewState.IdRef="Sequence_10">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:String" Name="strPopUpText" />
                   </Sequence.Variables>
@@ -104,7 +118,7 @@
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="title" DisplayName="Get Attribute 'Window Title'" sap:VirtualizedContainerService.HintSize="719,96" sap2010:WorkflowViewState.IdRef="GetAttribute_3">
+                  <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="title" DisplayName="Get Attribute 'Window Title'" sap:VirtualizedContainerService.HintSize="789,96" sap2010:WorkflowViewState.IdRef="GetAttribute_3">
                     <ui:GetAttribute.Result>
                       <OutArgument x:TypeArguments="x:String">[strPopUpText]</OutArgument>
                     </ui:GetAttribute.Result>
@@ -116,21 +130,21 @@
                       </ui:Target>
                     </ui:GetAttribute.Target>
                   </ui:GetAttribute>
-                  <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each PopUp Specified in Config" sap:VirtualizedContainerService.HintSize="719,531" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[IN_dictPopupConfig]">
+                  <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each PopUp Specified in Config" sap:VirtualizedContainerService.HintSize="789,1538" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[IN_dictPopupConfig]">
                     <ui:ForEach.Body>
                       <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:String)">
                         <ActivityAction.Argument>
                           <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:String)" Name="popup" />
                         </ActivityAction.Argument>
-                        <If Condition="[strPopUpText.Trim.ToLower.Contains(popup.Key.Trim.ToLower)]" DisplayName="If title matches" sap:VirtualizedContainerService.HintSize="683,398" sap2010:WorkflowViewState.IdRef="If_7">
+                        <If Condition="[strPopUpText.Trim.ToLower.Contains(popup.Key.Trim.ToLower)]" DisplayName="If title matches" sap:VirtualizedContainerService.HintSize="753,1405" sap2010:WorkflowViewState.IdRef="If_7">
                           <If.Then>
-                            <Sequence DisplayName="Take action and pass out popup text" sap:VirtualizedContainerService.HintSize="538,251" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                            <Sequence DisplayName="Take action and pass out popup text" sap:VirtualizedContainerService.HintSize="608,1258" sap2010:WorkflowViewState.IdRef="Sequence_9">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[popup.Value]" sap:VirtualizedContainerService.HintSize="496,159" sap2010:WorkflowViewState.IdRef="Switch`1_3">
+                              <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[popup.Value]" sap:VirtualizedContainerService.HintSize="566,1166" sap2010:WorkflowViewState.IdRef="Switch`1_3">
                                 <Switch.Default>
                                   <ui:BlockUserInput TimeoutMS="{x:Null}" BlockType="All" DisplayName="Block User Input" sap:VirtualizedContainerService.HintSize="436,232" sap2010:WorkflowViewState.IdRef="BlockUserInput_2" KeyModifiers="Alt" SpecialKey="True">
                                     <ui:BlockUserInput.Body>
@@ -161,17 +175,17 @@
                                     </sap:WorkflowViewStateService.ViewState>
                                   </ui:BlockUserInput>
                                 </Switch.Default>
-                                <Sequence x:Key="Data" DisplayName="Create exception with data" sap:VirtualizedContainerService.HintSize="304,66" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                <Sequence x:Key="Data" DisplayName="Create exception with data" sap:VirtualizedContainerService.HintSize="526,961" sap2010:WorkflowViewState.IdRef="Sequence_11">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="s:Exception" Name="exception" />
                                   </Sequence.Variables>
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <Assign DisplayName="Throw exception" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                                  <Assign DisplayName="Throw exception" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_1">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="s:Exception">[exception]</OutArgument>
                                     </Assign.To>
@@ -179,7 +193,7 @@
                                       <InArgument x:TypeArguments="s:Exception">[new InvalidDataException(strPopUpText &amp; " error.")]</InArgument>
                                     </Assign.Value>
                                   </Assign>
-                                  <Assign DisplayName="Add Config" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                  <Assign DisplayName="Add Config" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_5">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:Object">[exception.Data("Config")]</OutArgument>
                                     </Assign.To>
@@ -187,7 +201,7 @@
                                       <InArgument x:TypeArguments="x:Object">[IN_dictConfig]</InArgument>
                                     </Assign.Value>
                                   </Assign>
-                                  <Assign DisplayName="Add StartTime" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                  <Assign DisplayName="Add StartTime" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_6">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:Object">[exception.Data("StartTime")]</OutArgument>
                                     </Assign.To>
@@ -195,15 +209,43 @@
                                       <InArgument x:TypeArguments="x:Object">[IN_dateStartTime]</InArgument>
                                     </Assign.Value>
                                   </Assign>
-                                  <Assign DisplayName="Add Data" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                  <Assign DisplayName="Add Data" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_16">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:Object">[exception.Data("EmailData")]</OutArgument>
                                     </Assign.To>
                                     <Assign.Value>
-                                      <InArgument x:TypeArguments="x:Object">[IN_dictEmailData]</InArgument>
+                                      <InArgument x:TypeArguments="scg:IEnumerable(scg:KeyValuePair(x:String, x:String))">[IN_dictEmailData.Where(function(d) d.Key = "What is your home address ?" OR d.Key = "What is your home postcode ?" OR d.Key = "What is your name ?" OR d.Key = "What is your email address ?" OR d.Key = "What is your phone number ?")]</InArgument>
                                     </Assign.Value>
                                   </Assign>
-                                  <Throw DisplayName="Throw Data error" Exception="[exception]" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="Throw_9" />
+                                  <Assign DisplayName="Add FormTitle" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Object">[exception.Data("FormTitle")]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Object">["Address Not Recognised"]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Add FormBody" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Object">[exception.Data("FormBody")]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">["NIRS does not recognise the postcode and house number provided. &lt;br&gt;&lt;br&gt;Use the information below to try and manually find the address in NIRS. Press 'Continue' once resolved, or press 'Stop' to end the process and record this issue as an exception that needs further action. &lt;br&gt;&lt;br&gt;Note: If there are existing contacts in NIRS then select the correct one and check their details match those provided below. If the contact is not listed select 'None of the above' and click 'Continue'."]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Throw DisplayName="Throw Data error" Exception="[exception]" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="Throw_9" />
+                                  <If Condition="[popup.Key = &quot;GAZ02 No Results matching criteria&quot;]" DisplayName="If Address Error" sap:VirtualizedContainerService.HintSize="484,207" sap2010:WorkflowViewState.IdRef="If_8">
+                                    <If.Then>
+                                      <Assign DisplayName="Set Address Error" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:Boolean">[OUT_booAddressError]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </If.Then>
+                                  </If>
                                 </Sequence>
                                 <Throw x:Key="Application" Exception="[new exception(strPopUpText &amp; &quot; error.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_8" />
                               </Switch>
@@ -214,14 +256,12 @@
                     </ui:ForEach.Body>
                   </ui:ForEach>
                 </Sequence>
-                <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim x As New Process&#xA;Dim t As New Date&#xA;t = Now&#xA;For Each x In process.GetProcesses&#xA;&#x9;If x.ProcessName = &quot;IRS&quot;&#xA;&#x9;&#x9;Do&#xA;&#x9;&#x9;&#x9;If x.Responding&#xA;&#x9;&#x9;&#x9;Else&#xA;&#x9;&#x9;&#x9;&#x9;t = Now&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Loop Until (now - t).TotalMilliseconds &gt;= intTimeout&#xA;&#x9;End If&#xA;Next" DisplayName="Invoke code - Wait for Page Change" sap:VirtualizedContainerService.HintSize="761,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim x As New Process&#xA;Dim t As New Date&#xA;t = Now&#xA;For Each x In process.GetProcesses&#xA;&#x9;If x.ProcessName = &quot;IRS&quot;&#xA;&#x9;&#x9;Do&#xA;&#x9;&#x9;&#x9;If x.Responding&#xA;&#x9;&#x9;&#x9;Else&#xA;&#x9;&#x9;&#x9;&#x9;t = Now&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Loop Until (now - t).TotalMilliseconds &gt;= intTimeout&#xA;&#x9;End If&#xA;Next" DisplayName="Invoke code - Wait for Page Change" sap:VirtualizedContainerService.HintSize="831,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
                   <ui:InvokeCode.Arguments>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="intTimeout">
-                      <Literal x:TypeArguments="x:Int32" Value="2000" />
-                    </InArgument>
+                    <InArgument x:TypeArguments="x:Int32" x:Key="intTimeout">2000</InArgument>
                   </ui:InvokeCode.Arguments>
                 </ui:InvokeCode>
-                <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="761,106" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
+                <ui:UiElementExists DisplayName="Element Exists 'IRS.exe  Address Lookup'" Exists="[booPopUpExists]" sap:VirtualizedContainerService.HintSize="831,106" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
                   <ui:UiElementExists.Target>
                     <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="c31a52acf497b9263a57e9d3ffa4f8c5" Selector="&lt;wnd app='irs.exe' cls='#32770' title='*' /&gt;" TimeoutMS="3000" WaitForReady="COMPLETE" />
                   </ui:UiElementExists.Target>
@@ -237,7 +277,7 @@
         </ui:RetryScope>
       </If.Then>
       <If.Else>
-        <Sequence DisplayName="Multiple address match" sap:VirtualizedContainerService.HintSize="526,900" sap2010:WorkflowViewState.IdRef="Sequence_7">
+        <Sequence DisplayName="Multiple address match" sap:VirtualizedContainerService.HintSize="526,1100" sap2010:WorkflowViewState.IdRef="Sequence_7">
           <Sequence.Variables>
             <Variable x:TypeArguments="x:Boolean" Name="booAddressPopup" />
           </Sequence.Variables>
@@ -251,9 +291,9 @@
               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f0a4e12-c4e8-4562-a438-77a0476081dd" InformativeScreenshot="ba23ecd4a903a044028687b00f14a4d9" Selector="&lt;wnd app='irs.exe' cls='ThunderRT6FormDC' title='Address Lookup' /&gt;" TimeoutMS="1500" WaitForReady="COMPLETE" />
             </ui:UiElementExists.Target>
           </ui:UiElementExists>
-          <If Condition="[booAddressPopup]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="484,662" sap2010:WorkflowViewState.IdRef="If_5">
+          <If Condition="[booAddressPopup]" DisplayName="If popup exists" sap:VirtualizedContainerService.HintSize="484,862" sap2010:WorkflowViewState.IdRef="If_5">
             <If.Then>
-              <Sequence DisplayName="Create exception with data" sap:VirtualizedContainerService.HintSize="304,514" sap2010:WorkflowViewState.IdRef="Sequence_12">
+              <Sequence DisplayName="Create exception with data" sap:VirtualizedContainerService.HintSize="304,714" sap2010:WorkflowViewState.IdRef="Sequence_12">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="s:Exception" Name="exception" />
                 </Sequence.Variables>
@@ -279,20 +319,36 @@
                     <InArgument x:TypeArguments="x:Object">[IN_dictConfig]</InArgument>
                   </Assign.Value>
                 </Assign>
+                <Assign DisplayName="Add Data" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[exception.Data("EmailData")]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="scg:IEnumerable(scg:KeyValuePair(x:String, x:String))">[IN_dictEmailData.Where(function(d) d.Key = "What is your home address ?" OR d.Key = "What is your home postcode ?" OR d.Key = "What is your name ?" OR d.Key = "What is your email address ?" OR d.Key = "What is your phone number ?")]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Add FormTitle" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[exception.Data("FormTitle")]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Object">["Multiple Addresses returned"]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Add FormBody" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[exception.Data("FormBody")]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["NIRS has returned multiple addresses for the postcode and house number provided. &lt;br&gt;&lt;br&gt;Use the information below to try and manually select the correct address in NIRS. Press 'Continue' once resolved, or press 'Stop' to end the process and record this issue as an exception that needs further action. &lt;br&gt;&lt;br&gt;Note: If there are existing contacts in NIRS then select the correct one and check their details match those provided below. If the contact is not listed select 'None of the above' and click 'Continue'."]</InArgument>
+                  </Assign.Value>
+                </Assign>
                 <Assign DisplayName="Add StartTime" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_8">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:Object">[exception.Data("StartTime")]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
                     <InArgument x:TypeArguments="x:Object">[IN_dateStartTime]</InArgument>
-                  </Assign.Value>
-                </Assign>
-                <Assign DisplayName="Add Data" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
-                  <Assign.To>
-                    <OutArgument x:TypeArguments="x:Object">[exception.Data("EmailData")]</OutArgument>
-                  </Assign.To>
-                  <Assign.Value>
-                    <InArgument x:TypeArguments="x:Object">[IN_dictEmailData]</InArgument>
                   </Assign.Value>
                 </Assign>
                 <Throw DisplayName="Throw Data error" Exception="[exception]" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="Throw_10" />
@@ -302,5 +358,10 @@
         </Sequence>
       </If.Else>
     </If>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim x As New Process&#xA;Dim t As New Date&#xA;t = Now&#xA;For Each x In process.GetProcesses&#xA;&#x9;If x.ProcessName = &quot;IRS&quot;&#xA;&#x9;&#x9;Do&#xA;&#x9;&#x9;&#x9;If x.Responding&#xA;&#x9;&#x9;&#x9;Else&#xA;&#x9;&#x9;&#x9;&#x9;t = Now&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Loop Until (now - t).TotalMilliseconds &gt;= intTimeout&#xA;&#x9;End If&#xA;Next" DisplayName="Invoke code - Wait for Page Change" sap:VirtualizedContainerService.HintSize="1486,164" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:Int32" x:Key="intTimeout">2000</InArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
   </Sequence>
 </Activity>
