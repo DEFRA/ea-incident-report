@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1032,2288</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>898,2226</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Config_Reader_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="48">
@@ -65,7 +65,7 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Read Config" sap:VirtualizedContainerService.HintSize="623,2223" sap2010:WorkflowViewState.IdRef="Sequence_5">
+  <Sequence DisplayName="Read Config" sap:VirtualizedContainerService.HintSize="623,2161" sap2010:WorkflowViewState.IdRef="Sequence_5">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dtConfig" />
       <Variable x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" Name="dictConfig" />
@@ -76,7 +76,6 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:KillProcess ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process - EXCEL" sap:VirtualizedContainerService.HintSize="581,22" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="EXCEL" />
     <ui:MultipleAssign DisplayName="Initialize Dictionaries" sap:VirtualizedContainerService.HintSize="581,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">

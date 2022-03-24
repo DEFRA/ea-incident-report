@@ -3,8 +3,9 @@
     <x:Property Name="IN_strInProgressFolder" Type="InArgument(x:String)" />
     <x:Property Name="IN_strInbox" Type="InArgument(x:String)" />
     <x:Property Name="OUT_dictEmailData" Type="OutArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="IN_strEmailAccount" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1032,1355</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>947,3839</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -64,20 +65,21 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Get mail and extract data" sap:VirtualizedContainerService.HintSize="526,1290" sap2010:WorkflowViewState.IdRef="Sequence_5">
+  <Sequence DisplayName="Get mail and extract data" sap:VirtualizedContainerService.HintSize="609,3774" sap2010:WorkflowViewState.IdRef="Sequence_5">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="listMessage" />
       <Variable x:TypeArguments="x:String" Name="strMailBody" />
       <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="ienHeaderMatches" />
       <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="ienDataMatches" />
       <Variable x:TypeArguments="x:Int32" Name="intHeaderCount" />
+      <Variable x:TypeArguments="x:String" Name="strOdourRating" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign DisplayName="Init output data" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign DisplayName="Init output data" sap:VirtualizedContainerService.HintSize="567,60" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[OUT_dictEmailData]</OutArgument>
       </Assign.To>
@@ -85,52 +87,281 @@
         <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of string, string)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Retry Point: Get Mail" GetAttachements="False" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_4" MailFolder="[IN_strInbox]" MarkAsRead="False" Messages="[listMessage]" OnlyUnreadMessages="False" Top="1000">
-      <ui:GetOutlookMailMessages.Account>
-        <InArgument x:TypeArguments="x:String">
-          <Literal x:TypeArguments="x:String" Value="" />
-        </InArgument>
-      </ui:GetOutlookMailMessages.Account>
+    <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="[IN_strEmailAccount]" DisplayName="Retry Point: Get Mail" GetAttachements="False" sap:VirtualizedContainerService.HintSize="567,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_4" MailFolder="[IN_strInbox]" MarkAsRead="False" Messages="[listMessage]" OnlyUnreadMessages="False" Top="1000">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:GetOutlookMailMessages>
-    <If Condition="[listMessage.Count = 0]" DisplayName="If no mail" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[listMessage.Count = 0]" DisplayName="If no mail" sap:VirtualizedContainerService.HintSize="567,208" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Throw DisplayName="Throw mail error" Exception="[new BusinessRuleException(&quot;No mail&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
       </If.Then>
     </If>
-    <ui:MoveOutlookMessage Account="{x:Null}" DisplayName="Move oldest mail" sap:VirtualizedContainerService.HintSize="484,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_4" MailFolder="[IN_strInProgressFolder]" MailMessage="[listMessage.Last]" />
-    <Assign DisplayName="Store body" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:MoveOutlookMessage Account="[IN_strEmailAccount]" DisplayName="Move oldest mail" sap:VirtualizedContainerService.HintSize="567,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_4" MailFolder="[IN_strInProgressFolder]" MailMessage="[listMessage.Last]" />
+    <Assign DisplayName="Store body" sap:VirtualizedContainerService.HintSize="567,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[strMailBody]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[listMessage.Last.Headers("HTMLBody")]</InArgument>
+        <InArgument x:TypeArguments="x:String">[listMessage.Last.Body]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:Matches BuilderPattern="(?&lt;=&lt;th&gt;).*?(?=&lt;\/th&gt;)" DisplayName="Header Matches" sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[strMailBody]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(?&lt;=&lt;th&gt;).*?(?=&lt;\\\/th&gt;)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?&lt;=&lt;th&gt;).*?(?=&lt;\/th&gt;)" RegexOption="IgnoreCase" Result="[ienHeaderMatches]" />
-    <ui:Matches BuilderPattern="(?&lt;=&lt;th&gt;).*?(?=&lt;\/th&gt;)" DisplayName="Data Matches" sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_2" Input="[strMailBody]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(?&lt;=&lt;th&gt;).*?(?=&lt;\\\/th&gt;)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?&lt;=&lt;td&gt;).*?(?=&lt;\/td&gt;)" RegexOption="IgnoreCase" Result="[ienDataMatches]" />
-    <ui:ForEach x:TypeArguments="str:Match" CurrentIndex="[intHeaderCount]" DisplayName="For Each Table header" sap:VirtualizedContainerService.HintSize="484,194" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[ienHeaderMatches]">
-      <ui:ForEach.Body>
-        <ActivityAction x:TypeArguments="str:Match">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="str:Match" Name="header" />
-          </ActivityAction.Argument>
-          <Assign DisplayName="Store Data" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
-            <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData(header.Value.Trim)]</OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="x:String">[ienDataMatches(intHeaderCount).Value]</InArgument>
-            </Assign.Value>
-          </Assign>
-        </ActivityAction>
-      </ui:ForEach.Body>
-    </ui:ForEach>
-    <ui:MultipleAssign DisplayName="Store Sender address and date received" sap:VirtualizedContainerService.HintSize="484,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <Sequence DisplayName="Regex for Data" sap:VirtualizedContainerService.HintSize="567,1940" sap2010:WorkflowViewState.IdRef="Sequence_8">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Remove unnecessary parts of body" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_32">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strMailBody]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strMailBody.Split({"The following"}, nothing).Last]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set First Name" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("First name")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=First name).*?(?=Last name)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Last Name" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Last name")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Last name).*?(?=Address line 1)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Name" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your name ?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[OUT_dictEmailData("First name") &amp; " " &amp; OUT_dictEmailData("Last name")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Address Line 1" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Address line 1")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Address line 1).*?(?=Address line 2 \(optional\))", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Address Line 2" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Address line 2")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Address line 2 \(optional\)).*?(?=Town or city)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Address Town or city" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Town or city")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Town or city).*?(?=County \(optional\))", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Address County" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_20">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("County")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=County \(optional\)).*?(?=Postcode)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Address Postcode" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your home postcode ?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Postcode).*?(?=Email address)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Address Full" sap:VirtualizedContainerService.HintSize="262,64" sap2010:WorkflowViewState.IdRef="Assign_22">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your home address ?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String" xml:space="preserve">[OUT_dictEmailData("Address line 1") &amp; Environment.NewLine &amp; _
+If(OUT_dictEmailData("Address line 2").Trim&lt;&gt;"", OUT_dictEmailData("Address line 2") &amp; Environment.NewLine, "") &amp; _
+OUT_dictEmailData("Town or city") &amp; Environment.NewLine &amp; _
+OUT_dictEmailData("County")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Email address" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your email address ?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Email address).*?(?=Phone)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set Phone number" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your phone number ?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Phone number \(optional\)).*?(?=How strong is the smell\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Set How strong is the smell?" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_25">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("How strong is the smell ?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=How strong is the smell\?).*?(?=Are you experiencing this smell at your home address\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Are you experiencing this smell at your home address?" DisplayName="Set at home?" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_26">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Are you experiencing this smell at your home address?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Are you experiencing this smell at your home address\?).*?(?=Where did you notice this smell\? \(optional\))", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Assign>
+      <Assign DisplayName="Where did you notice this smell?" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Where did you notice this smell? Give as much detail as possible, for example the street name, postcode, description of the location.")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Where did you notice this smell\? \(optional\)).*?(?=How would you describe the smell\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="How would you describe the smell?" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("How would you describe the smell? (optional)Give as much detail as possible, for example does it smell like burning wood or plastic, or rotting material?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=How would you describe the smell\?).*?(?=What date did you notice the smell\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="What date did you notice the smell?" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What date did you notice the smell?")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=What date did you notice the smell\?).*?(?=What time of day did you notice the smell\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="What time of day did you notice the smell?" DisplayName="Time noticed" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_30">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What time of day did you notice the smell?Use the 24 hour clock format for example 13:20")]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=What time of day did you notice the smell\?).*?$", RegexOptions.Singleline).Value.Trim]</InArgument>
+        </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Assign>
+    </Sequence>
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="567,61" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[JSONConvert.DeserializeObject(Of JObject)(JsonConvert.SerializeObject(OUT_dictEmailData)).ToString]" />
+    <Switch x:TypeArguments="x:String" DisplayName="Odour options" Expression="[OUT_dictEmailData(&quot;How strong is the smell ?&quot;).Trim.ToLower]" sap:VirtualizedContainerService.HintSize="567,374" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+      <Switch.Default>
+        <Throw DisplayName="Throw unknown odour" Exception="[new exception(&quot;Unknown odour description: &quot; &amp; OUT_dictEmailData(&quot;How strong is the smell ?&quot;).Trim.ToLower)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+      </Switch.Default>
+      <Assign x:Key="no smell" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">0</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign x:Key="very slight smell" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">1</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign x:Key="slight smell" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">2</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign x:Key="noticeable smell (a smell you notice while breathing normally)" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">3</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign x:Key="distinct smell (a smell that might make your hair and clothes smell)" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">4</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign x:Key="overwhelming smell (a smell that makes you want to leave the area)" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">5</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign x:Key="intolerable smell (a smell that forces you to hold your breath and leave the area)" DisplayName="Assign Rating" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strOdourRating]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">6</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Switch>
+    <Assign DisplayName="Remove non-digits from phone" sap:VirtualizedContainerService.HintSize="567,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your phone number ?")]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[Regex.Replace(OUT_dictEmailData("What is your phone number ?").Trim, "\D", "")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If sap2010:Annotation.AnnotationText="Check length of number is between 9 and 15 characters to capture most number configurations" Condition="[(OUT_dictEmailData(&quot;What is your phone number ?&quot;).Trim.Length mod 10 &lt; 6) AND (OUT_dictEmailData(&quot;What is your phone number ?&quot;).Trim.Length &gt; 9)]" DisplayName="Check for valid mobile" sap:VirtualizedContainerService.HintSize="567,250" sap2010:WorkflowViewState.IdRef="If_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Else>
+        <Assign DisplayName="Remove number" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your phone number ?")]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">
+              <Literal x:TypeArguments="x:String" Value="" />
+            </InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <ui:MultipleAssign DisplayName="Store Sender address, date received and rating" sap:VirtualizedContainerService.HintSize="567,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -138,7 +369,7 @@
               <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("DateReceived")]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
-              <InArgument x:TypeArguments="x:String">[listMessage.Last.Headers("Date Received")]</InArgument>
+              <InArgument x:TypeArguments="x:String">[listMessage.Last.Headers("Date")]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
@@ -147,6 +378,14 @@
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="x:String">[listMessage.Last.Sender.Address]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("Odour Rating")]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[strOdourRating]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
         </scg:List>
