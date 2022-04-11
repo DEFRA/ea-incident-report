@@ -5,7 +5,7 @@
     <x:Property Name="OUT_dictEmailData" Type="OutArgument(scg:Dictionary(x:String, x:String))" />
     <x:Property Name="IN_strEmailAccount" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>947,3839</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>932,3839</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -202,7 +202,7 @@ OUT_dictEmailData("County")]</InArgument>
           <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("What is your email address ?")]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Email address).*?(?=Phone)", RegexOptions.Singleline).Value.Trim]</InArgument>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=Email address)(?'address'.*?@([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+)(?'action'.*?)(?=Phone)", RegexOptions.Singleline).Groups("address").Value.Trim]</InArgument>
         </Assign.Value>
       </Assign>
       <Assign DisplayName="Set Phone number" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_24">
@@ -247,7 +247,7 @@ OUT_dictEmailData("County")]</InArgument>
           <OutArgument x:TypeArguments="x:String">[OUT_dictEmailData("How would you describe the smell? (optional)Give as much detail as possible, for example does it smell like burning wood or plastic, or rotting material?")]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=How would you describe the smell\?).*?(?=What date did you notice the smell\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
+          <InArgument x:TypeArguments="x:String">[Regex.Match(strMailBody, "(?&lt;=How would you describe the smell\? \(optional\)).*?(?=What date did you notice the smell\?)", RegexOptions.Singleline).Value.Trim]</InArgument>
         </Assign.Value>
       </Assign>
       <Assign DisplayName="What date did you notice the smell?" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_29">
