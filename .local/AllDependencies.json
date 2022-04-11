@@ -3715,8 +3715,8 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Walleys App form into NIRS",
-      "projectName": "Walleys App form into NIRS",
+      "projectUniqueName": "Walleys App form into NIRS - GOV",
+      "projectName": "Walleys App form into NIRS - GOV",
       "projectPath": "C:\\UiPath\\ea-incident-report\\.local",
       "packagesPath": "C:\\Users\\m1005058\\.nuget\\packages\\",
       "outputPath": "C:\\UiPath\\ea-incident-report\\.local"

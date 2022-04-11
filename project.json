@@ -1,5 +1,5 @@
 {
-  "name": "Walleys App form into NIRS",
+  "name": "Walleys App form into NIRS - GOV",
   "description": "Walley Quarry Incident",
   "main": "Main.xaml",
   "dependencies": {
@@ -16,7 +16,7 @@
   "webServices": [],
   "schemaVersion": "4.0",
   "studioVersion": "20.4.3.0",
-  "projectVersion": "2.0.1",
+  "projectVersion": "2.0.0",
   "runtimeOptions": {
     "exceptionHandlerWorkflow": "GlobalHandler.xaml",
     "autoDispose": false,

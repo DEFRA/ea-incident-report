@@ -112,11 +112,11 @@
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.uiautomation.activities/20.4.2\\lib/net461/UiPath.Wizards.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.AzureComputerVision.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Core.dll",
-        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.GoogleCloud.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Microsoft.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.MicrosoftCloud.dll",
-        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Tesseract.dll"
+        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Tesseract.dll",
+        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.dll"
       ],
       "Path": "C:\\Users\\m1005058\\.nuget\\packages\\reusable.components\\1.0.11"
     },
@@ -340,11 +340,11 @@
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.uiautomation.activities/20.4.2\\lib/net461/UiPath.Wizards.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.AzureComputerVision.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Core.dll",
-        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.GoogleCloud.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Microsoft.dll",
         "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.MicrosoftCloud.dll",
-        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Tesseract.dll"
+        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.Tesseract.dll",
+        "C:\\Users\\m1005058\\.nuget\\packages\\uipath.vision/2.0.3\\lib/net461/UiPath.Vision.dll"
       ],
       "Path": "C:\\Users\\m1005058\\.nuget\\packages\\uipath.uiautomation.activities\\20.4.2"
     }
