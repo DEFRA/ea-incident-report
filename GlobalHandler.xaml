@@ -14,10 +14,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1550,2833</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1551,2873</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GlobalHandler_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="33">
+    <scg:List x:TypeArguments="x:String" Capacity="66">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -51,10 +51,11 @@
       <x:String>System.Windows.Media</x:String>
       <x:String>System.Xml.Serialization</x:String>
       <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>UiPath.Excel</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="54">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -82,9 +83,11 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This sequence steps in during execution when the project encounters an unmanaged error.&#xA;&#xA;Important: Arguments 'errorInfo' and 'result' should not be removed." DisplayName="Global Exception Handler" sap:VirtualizedContainerService.HintSize="1560,2768" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="This sequence steps in during execution when the project encounters an unmanaged error.&#xA;&#xA;Important: Arguments 'errorInfo' and 'result' should not be removed." DisplayName="Global Exception Handler" sap:VirtualizedContainerService.HintSize="1561,2768" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="answer" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="retry" />
@@ -96,10 +99,10 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Error" sap:VirtualizedContainerService.HintSize="1518,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[errorInfo.ActivityInfo.Name &amp; &quot; : &quot; &amp; errorInfo.Exception.ToString]" />
-    <If Condition="[errorInfo.Exception.GetType.AssemblyQualifiedName.StartsWith(&quot;System.IO.InvalidDataException&quot;)]" DisplayName="If InvalidDataException" sap:VirtualizedContainerService.HintSize="1518,1295" sap2010:WorkflowViewState.IdRef="If_3">
+    <ui:LogMessage DisplayName="Log Error" sap:VirtualizedContainerService.HintSize="1519,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[errorInfo.ActivityInfo.Name &amp; &quot; : &quot; &amp; errorInfo.Exception.ToString]" />
+    <If Condition="[errorInfo.Exception.GetType.AssemblyQualifiedName.StartsWith(&quot;System.IO.InvalidDataException&quot;)]" DisplayName="If InvalidDataException" sap:VirtualizedContainerService.HintSize="1519,1295" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
-        <Sequence DisplayName="Request input from user" sap:VirtualizedContainerService.HintSize="759,1147" sap2010:WorkflowViewState.IdRef="Sequence_7">
+        <Sequence DisplayName="Request input from user" sap:VirtualizedContainerService.HintSize="760,1147" sap2010:WorkflowViewState.IdRef="Sequence_7">
           <Sequence.Variables>
             <Variable x:TypeArguments="x:String" Name="strSelectedOption" />
             <Variable x:TypeArguments="x:Boolean" Name="booDismissed" />
@@ -109,7 +112,7 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Store config" sap:VirtualizedContainerService.HintSize="717,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+          <Assign DisplayName="Store config" sap:VirtualizedContainerService.HintSize="718,60" sap2010:WorkflowViewState.IdRef="Assign_9">
             <Assign.To>
               <OutArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)">[dictConfig]</OutArgument>
             </Assign.To>
@@ -117,7 +120,7 @@
               <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)">[JsonConvert.DeserializeObject(of Dictionary(of string, GenericValue))(JsonConvert.SerializeObject(errorInfo.Exception.Data("Config")))]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Form" sap:VirtualizedContainerService.HintSize="717,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" TargetSession="Main" UnSafe="True" WorkflowFileName="Sub Flows\Global Handler Form.xaml">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Form" sap:VirtualizedContainerService.HintSize="718,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" TargetSession="Main" UnSafe="True" WorkflowFileName="Sub Flows\Global Handler Form.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="IN_dictEmailData">[JsonConvert.DeserializeObject(of Dictionary(of string, string))(JsonConvert.SerializeObject(errorInfo.Exception.Data("EmailData")))]</InArgument>
               <OutArgument x:TypeArguments="x:String" x:Key="OUT_strSelectedOption">[strSelectedOption]</OutArgument>
@@ -126,9 +129,9 @@
               <InArgument x:TypeArguments="x:String" x:Key="IN_strErrorBody">[errorInfo.Exception.Data("FormBody").ToString]</InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <If Condition="[strSelectedOption.Trim.ToLower = &quot;stop&quot; OR booDismissed]" DisplayName="If Dismissed or Stop" sap:VirtualizedContainerService.HintSize="717,803" sap2010:WorkflowViewState.IdRef="If_6">
+          <If Condition="[strSelectedOption.Trim.ToLower = &quot;stop&quot; OR booDismissed]" DisplayName="If Dismissed or Stop" sap:VirtualizedContainerService.HintSize="718,803" sap2010:WorkflowViewState.IdRef="If_6">
             <If.Then>
-              <Sequence DisplayName="Abort and message" sap:VirtualizedContainerService.HintSize="410,655" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <Sequence DisplayName="Abort and message" sap:VirtualizedContainerService.HintSize="411,655" sap2010:WorkflowViewState.IdRef="Sequence_6">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="listMail" />
                   <Variable x:TypeArguments="x:String" Name="strOutputData" />
@@ -140,7 +143,7 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Assign sap:VirtualizedContainerService.HintSize="368,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                <Assign sap:VirtualizedContainerService.HintSize="369,60" sap2010:WorkflowViewState.IdRef="Assign_10">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:Boolean">[booDismissed]</OutArgument>
                   </Assign.To>
@@ -148,22 +151,26 @@
                     <InArgument x:TypeArguments="x:Boolean">False</InArgument>
                   </Assign.Value>
                 </Assign>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke More Info" sap:VirtualizedContainerService.HintSize="368,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" TargetSession="Main" UnSafe="True" WorkflowFileName="Sub Flows\Global Handler Further Info Form.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke More Info" sap:VirtualizedContainerService.HintSize="369,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" TargetSession="Main" UnSafe="True" WorkflowFileName="Sub Flows\Global Handler Further Info Form.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <OutArgument x:TypeArguments="x:Boolean" x:Key="OUT_booDismissed">[booDismissed]</OutArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="OUT_strReason">[strReason]</OutArgument>
+                    <OutArgument x:TypeArguments="x:Boolean" x:Key="OUT_booDismissed">
+                      <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="booDismissed" />
+                    </OutArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="OUT_strReason">
+                      <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strReason" />
+                    </OutArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <r:Log_Case___Preset DisplayName="Log Case - Exception" sap:VirtualizedContainerService.HintSize="368,22" IN_dateCaseEndTime="[Now]" IN_dateCaseStartTime="[Convert.ToDateTime(errorInfo.Exception.Data(&quot;StartTime&quot;).ToString)]" IN_dateCaseTotalTime="[(Now - Convert.ToDateTime(errorInfo.Exception.Data(&quot;StartTime&quot;).ToString)).ToString]" IN_strCaseID="[JsonConvert.DeserializeObject(of Dictionary(of string, string))(JsonConvert.SerializeObject(errorInfo.Exception.Data(&quot;EmailData&quot;)))(&quot;Email&quot;)]" IN_strFailureMessage="[errorInfo.Exception.Message]" IN_strFilePath="[String.Format(dictConfig(&quot;Local Log File Path&quot;),Environment.UserName,DateTime.Now.ToString(&quot;dd.MM.yyyy&quot;))]" IN_strNotes="[&quot;Stopped at Data Exception due to &quot; &amp; strReason]" IN_strSuccessful="Business Exception" IN_strUser="[Environment.UserName]" IN_strWorkpackageName="[dictConfig(&quot;Workpackage Name&quot;).ToString]" sap2010:WorkflowViewState.IdRef="Log_Case___Preset_1" />
-                <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="[dictConfig(&quot;Email Account&quot;)]" DisplayName="Get Outlook Mail Messages" GetAttachements="False" sap:VirtualizedContainerService.HintSize="368,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="[dictConfig(&quot;Email In Progress Folder&quot;).ToString]" MarkAsRead="False" Messages="[listMail]" OnlyUnreadMessages="False" Top="1" />
-                <ui:MoveOutlookMessage Account="[dictConfig(&quot;Email Account&quot;)]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="368,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_1" MailFolder="[dictConfig(&quot;Email Exception Folder&quot;)]" MailMessage="[listMail(0)]">
+                <r:Log_Case DisplayName="Log Case" sap:VirtualizedContainerService.HintSize="369,22" IN_TypeCSV="True" IN_dateCaseEndTime="[Now]" IN_dateCaseStartTime="[Convert.ToDateTime(errorInfo.Exception.Data(&quot;StartTime&quot;).ToString)]" IN_dateCaseTotalTime="[(Now - Convert.ToDateTime(errorInfo.Exception.Data(&quot;StartTime&quot;).ToString)).ToString]" IN_strCaseID="[JsonConvert.DeserializeObject(of Dictionary(of string, string))(JsonConvert.SerializeObject(errorInfo.Exception.Data(&quot;EmailData&quot;)))(&quot;Email&quot;)]" IN_strFailureMessage="[errorInfo.Exception.Message]" IN_strFilePath="[String.Format(dictConfig(&quot;Local Log File Path&quot;),Environment.UserName,DateTime.Now.ToString(&quot;dd.MM.yyyy&quot;))]" IN_strNotes="[&quot;Stopped at Data Exception due to &quot; &amp; strReason]" IN_strSuccessful="Business Exception" IN_strUser="[Environment.UserName]" IN_strWorkpackageName="[dictConfig(&quot;Workpackage Name&quot;).ToString]" sap2010:WorkflowViewState.IdRef="Log_Case_1" in_dblCaseProcessingTime="0" />
+                <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="[dictConfig(&quot;Email Account&quot;)]" DisplayName="Get Outlook Mail Messages" GetAttachements="False" sap:VirtualizedContainerService.HintSize="369,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="[dictConfig(&quot;Email In Progress Folder&quot;).ToString]" MarkAsRead="False" Messages="[listMail]" OnlyUnreadMessages="False" Top="1" />
+                <ui:MoveOutlookMessage Account="[dictConfig(&quot;Email Account&quot;)]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="369,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_1" MailFolder="[dictConfig(&quot;Email Exception Folder&quot;)]" MailMessage="[listMail(0)]">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </ui:MoveOutlookMessage>
-                <Assign sap:VirtualizedContainerService.HintSize="368,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                <Assign sap:VirtualizedContainerService.HintSize="369,60" sap2010:WorkflowViewState.IdRef="Assign_7">
                   <Assign.To>
                     <OutArgument x:TypeArguments="uico:ErrorAction">[result]</OutArgument>
                   </Assign.To>
@@ -220,7 +227,7 @@
         </If>
       </If.Else>
     </If>
-    <If Condition="[result = ErrorAction.Abort]" DisplayName="If abort" sap:VirtualizedContainerService.HintSize="1518,1153" sap2010:WorkflowViewState.IdRef="If_5">
+    <If Condition="[result = ErrorAction.Abort]" DisplayName="If abort" sap:VirtualizedContainerService.HintSize="1519,1153" sap2010:WorkflowViewState.IdRef="If_5">
       <If.Then>
         <Sequence DisplayName="Cancel Out" sap:VirtualizedContainerService.HintSize="610,1005" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <Sequence.Variables>
