@@ -9,7 +9,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>781,1189</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1137,1066</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Global_Handler_Form_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -139,8 +139,12 @@
         </ActivityAction>
       </ufa:FormActivity.DelayBody>
       <ufa:FormActivity.FormFieldsCollection>
-        <InArgument x:TypeArguments="x:String" x:Key="email">[strEmailAsTable]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="body">[IN_strErrorBody]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="email">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="strEmailAsTable" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="body">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="IN_strErrorBody" />
+        </InArgument>
       </ufa:FormActivity.FormFieldsCollection>
     </ufa:FormActivity>
   </Sequence>
