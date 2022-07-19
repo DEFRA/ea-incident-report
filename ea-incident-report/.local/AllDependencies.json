@@ -4932,15 +4932,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\m1005058\\.nuget\\packages\\": {}
+    "C:\\Users\\m1006120\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Walleys App form into NIRS - GOV",
       "projectName": "Walleys App form into NIRS - GOV",
-      "projectPath": "C:\\Users\\m1005058\\OneDrive - Defra\\Jason - In Progress Work\\ea-incident-report\\.local",
-      "packagesPath": "C:\\Users\\m1005058\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\m1005058\\OneDrive - Defra\\Jason - In Progress Work\\ea-incident-report\\.local"
+      "projectPath": "C:\\Users\\m1006120\\OneDrive - Defra\\UiPath\\Github\\ea-incident-report\\ea-incident-report\\.local",
+      "packagesPath": "C:\\Users\\m1006120\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\m1006120\\OneDrive - Defra\\UiPath\\Github\\ea-incident-report\\ea-incident-report\\.local"
     },
     "frameworks": {
       "net461": {
